@@ -55,7 +55,6 @@ void navigateExample(QSettings& settings) {
 
         settings.endGroup();
     }
-
 }
 
 int main(int argc, char *argv[])
