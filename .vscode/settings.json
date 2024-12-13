@@ -3,7 +3,8 @@
     "files.associations": {
         "qiodevice": "cpp",
         "qbuffer": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "qfileinfolist": "cpp"
     }
 
 }
