@@ -18,6 +18,7 @@ add_executable(5_QFileSystems
   main.cpp
   IODevice.h
   TextStream.h
+  DataStream.h
 )
 target_link_libraries(5_QFileSystems Qt${QT_VERSION_MAJOR}::Core)
 

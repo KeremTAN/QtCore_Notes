@@ -3,6 +3,7 @@
 
 #include <QFile>
 #include <QDebug>
+#include <QTextStream>
 
 
 class TextStream {
@@ -21,7 +22,7 @@ class TextStream {
         for(int i{}; i < 5; i++) {
             stream << QString::number(i) << "-Item \r\n";
         }
-        stream.flush();
+        stream.flush(); // sent data on the buffer directly to receiver
         qInfo() << "File written";
     }
 
@@ -50,7 +51,7 @@ public:
 
             write(file);
             read(file);
-            file.close();
+            file.close(); // close includes flush
         }
         else {
             qInfo() << file.errorString();
