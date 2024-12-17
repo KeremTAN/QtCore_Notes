@@ -1,5 +1,5 @@
 {
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/5_QFileSystems/build/compile_commands.json",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/6_Debug/build/compile_commands.json",
     "files.associations": {
         "qiodevice": "cpp",
         "qbuffer": "cpp",
