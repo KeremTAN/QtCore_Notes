@@ -1,58 +1,62 @@
 #include <QCoreApplication>
 #include <QDebug>
-#include <QDateTime>
-#include <QTextStream>
-#include <QFile>
+#include <QLoggingCategory>
+#include "logger.h"
+#include "test.h"
+
+Q_DECLARE_LOGGING_CATEGORY(network);
+Q_LOGGING_CATEGORY(network, "network");
 
 
-const QtMessageHandler QT_DEFAULT_MESSAGE_HANDLER = qInstallMessageHandler(nullptr);
+void mainCategory() {
+    // part1
+    qInfo() << "test";
 
-void lhandler(QtMsgType type, const QMessageLogContext& context, const QString& msg) {
+    qInfo(network) << "test";
+    qWarning(network) << "test";
 
-    QString txt{};
+    //turn it off
+    QLoggingCategory::setFilterRules("network.debug=false");
 
-    switch (type) {
-    case QtInfoMsg:
-        txt = QString("Info: %1").arg(msg);
-        break;
-    case QtDebugMsg:
-        txt = QString("Debug: %1").arg(msg);
-        break;
-    case QtWarningMsg:
-        txt = QString("Warning: %1").arg(msg);
-        break;
-    case QtCriticalMsg:
-        txt = QString("Critical: %1").arg(msg);
-        break;
-    case QtFatalMsg:
-        txt = QString("Fatal: %1").arg(msg);
-        break;
-    default:
-        txt = QString("Unknown: %1").arg(msg);
-        break;
+    qDebug(network) << "It will not printed";
+
+    if(!network().isDebugEnabled()) {
+        QLoggingCategory::setFilterRules("network.debug=true");
+        qDebug(network) << "Network is enabled";
     }
 
-    QFile file("log.txt");
-    if(file.open(QIODevice::Append)) {
-        QTextStream ts(&file);
-        ts << QDateTime::currentDateTime().toString() << " - " << txt << " file: " << context.file << " line: " << context.line << "\r\n";
-        ts.flush();
-        file.close();
-    }
+    qDebug(network) << "yes";
+    // ----------------------------------------------------------
 
-    (*QT_DEFAULT_MESSAGE_HANDLER)(type, context, msg);
+    // part2 More Simple
+    QLoggingCategory logTest("testing");
+    logTest.setEnabled(QtMsgType::QtDebugMsg, false);
+
+    qDebug() << "Debug = " << logTest.isDebugEnabled();
+    qInfo() << "Info = " << logTest.isInfoEnabled();
+
+    qDebug(logTest) << "This is a debug";
+    qInfo(logTest) << "This is a info";
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char*argv[]) {
     QCoreApplication a(argc, argv);
-    qInstallMessageHandler(lhandler);
 
-    qInfo() << "Info message";
-    qDebug() << "Debug message";
-    qWarning() << "Warnnig message";
-    qCritical() << "Critical message";
-    qFatal() << "Fatal message";
+    // qInfo() << "File:" << Logger::filename;
+    // Logger::attach();
+
+    // qInfo() << "test";
+
+    // Logger::logging = false;
+    // qInfo() << "This will not be logged";
+    // Logger::logging = true;
+
+    // Test t;
+    // t.testing();
+
+    // qInfo() << "Finished";
+
+    mainCategory();
 
     return a.exec();
 }

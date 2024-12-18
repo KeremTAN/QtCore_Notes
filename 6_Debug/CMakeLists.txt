@@ -15,7 +15,10 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
 
 add_executable(6_Debug
-  main.cpp
+    logger.h logger.cpp
+    test.h test.cpp
+    main.cpp
+   #Lecture0.cpp
 )
 target_link_libraries(6_Debug Qt${QT_VERSION_MAJOR}::Core)
 
