@@ -1,5 +1,5 @@
 {
-    "C_Cpp.default.compileCommands": "${workspaceFolder}/6_Debug/build/Qt_6_8_0_for_macOS-Debug/compile_commands.json",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/8_Compression/build/compile_commands.json",
     "files.associations": {
         "qiodevice": "cpp",
         "qbuffer": "cpp",
